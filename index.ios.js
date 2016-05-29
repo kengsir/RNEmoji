@@ -15,7 +15,7 @@ import {
     View
 } from 'react-native';
 
-import Square from './Component/Square'
+import Square from './View/Square'
 
 class RNEmoji extends Component {
 
@@ -54,11 +54,11 @@ class RNEmoji extends Component {
 
     render() {
         return (
-            <TabBarIOS>
+            <TabBarIOS tintColor="orange">
                 <TabBarIOS.Item
                     title="收藏"
                     icon={require('image!icon_tabbar_misc')}
-                    onPress={ ()=>this.changeTab('collect')}
+                    onPress={ ()=>this.changeTab('collect') }
                     //selected 一个bool值,这个属性决定了子视图是否可见。如果你看到一个空白的页面，很可能是没有选中任何一个标签。
                     selected={this.state.selectedTab === 'collect'}>
                     <NavigatorIOS
