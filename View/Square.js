@@ -15,7 +15,7 @@ import {
     View
 } from 'react-native';
 
-import CoverSlider from './Component/CoverSlider'
+import CoverSlider from './../Component/CoverSlider'
 
 export default class Square extends Component {
 
@@ -23,7 +23,8 @@ export default class Square extends Component {
         return(
             <View style={styles.container}>
                 <ScrollView>
-                    <CoverSlider/>
+                    <CoverSlider />
+                    <View style={{height : 4, backgroundColor : '#F2F2F2'}} />
                 </ScrollView>
             </View>
         );
