@@ -15,12 +15,35 @@ import {
     Text,
     Image,
     ScrollView,
-    View
+    View,
+    TouchableHighlight
 } from 'react-native';
 
+//cat 数据
+var MockData = [{
+    img : 'http://gtms02.alicdn.com/tps/i2/TB1hbkyHpXXXXboXXXXcy0wIpXX-70-70.png',
+    text : '手机圈儿',
+    link : 'http://3c.m.tmall.com'
+},{
+    img : 'http://gtms02.alicdn.com/tps/i2/TB1hbkyHpXXXXboXXXXcy0wIpXX-70-70.png',
+    text : '发现好玩',
+    link : 'http://3c.m.tmall.com'
+},{
+    img : 'http://gtms01.alicdn.com/tps/i1/TB1wpUtHpXXXXb1XVXXcy0wIpXX-70-70.png',
+    text : '我爱我家',
+    link : 'http://3c.m.tmall.com'
+},{
+    img : 'http://gtms01.alicdn.com/tps/i1/TB1wpUtHpXXXXb1XVXXcy0wIpXX-70-70.png',
+    text : '我爱我家',
+    link : 'http://3c.m.tmall.com'
+},{
+    img : 'http://gtms01.alicdn.com/tps/i1/TB1wpUtHpXXXXb1XVXXcy0wIpXX-70-70.png',
+    text : '我爱我家',
+    link : 'http://3c.m.tmall.com'
+}];
 
 
-export default class CoverSlider extends Component {
+export default class RushCell extends Component {
 
 
     //虽然组件的原则就是模块化，彼此之间相互独立，但是有时候不同的组件之间可能会共用一些功能，
@@ -29,7 +52,7 @@ export default class CoverSlider extends Component {
     //Mixin 就是用来定义一些方法，使用这个 mixin 的组件能够自由的使用这些方法（就像在组件中定义的一样），
     //所以 mixin 相当于组件的一个扩展，在 mixin 中也能定义“生命周期”方法。
     // ES6 舍弃了
-    mixin = [TimerMixin]
+    //mixin = [TimerMixin]
 
 
     //对于每个组件实例来讲，这个方法只会调用一次，该组件类的所有后续应用，
@@ -44,9 +67,9 @@ export default class CoverSlider extends Component {
     //         api : 'http://ald.taobao.com/recommend.htm?appId=lb-tms-1261576-40550'
     //     }
     // }
-    static defaultProps = {
-       
-    }
+    // static defaultProps = {
+    //
+    // }
 
     //对于组件的每个实例来说，这个方法的调用有且只有一次，
     //来初始化每个实例的 state，在这个方法里，可以访问组件的 props。
@@ -67,12 +90,12 @@ export default class CoverSlider extends Component {
 
     // 使用构造方法代替
     // 构造
-    constructor(props) {
-        super(props);
-        // 初始状态
-        this.state = {
-        };
-    }
+    // constructor(props) {
+    //     super(props);
+    //     // 初始状态
+    //     this.state = {
+    //     };
+    // }
 
     // 拉取投放的数据
     fetchData() {
@@ -85,25 +108,42 @@ export default class CoverSlider extends Component {
 
     }
 
-    //渲染单个图片
     renderItems(data) {
+        return data.map(function(items,i){
+            return (
+                <TouchableHighlight >
 
-       
+                    <View style={styles.boxItem}>
+
+                        <Image key={i} source={{uri : items.img}} style={styles.boxImg} />
+                        <Text style={styles.boxText}>{items.text}</Text>
+
+                    </View></TouchableHighlight>
+            )
+        })
     }
 
-
-    // 渲染
     render() {
-       
         return (
-            <View style={styles.container}>
-                <ScrollView>
-                  
-                   
+            <View style={styles.box} >
+
+                <ScrollView
+                    ref = 'scrollView'
+                    contentContainerStyle={styles.container}
+                    automaticallyAdjustContentInsets={false}
+                    horizontal={true}
+                    pagingEnabled={true}
+                    showsHorizontalScrollIndicator={false}
+                    onMomentumScrollEnd={this.onAnimtionEnd}>
+                    {this.renderItems(MockData)}
                 </ScrollView>
+
+
             </View>
-        );
+        )
+
     }
+
 
     componentDidMount() {
     }
@@ -122,5 +162,32 @@ export default class CoverSlider extends Component {
 
 // 样式表
 var styles = StyleSheet.create({
+    container:{
+        flex:1,
 
+    },
+
+    box: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingTop: 10,
+        paddingBottom : 10,
+        backgroundColor : 'white'
+    },
+    boxImg : {
+        width : 85,
+        height: 85,
+        marginBottom : 10
+    },
+    boxItem: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 2
+    },
+    boxText: {
+        color : '#333333',
+        fontSize : 12
+    }
 });
